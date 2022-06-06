@@ -1,8 +1,8 @@
-# 🏫 Wishlist REST API
+# 📄 Wishlist REST API
 
 REST API made with Java, Spring Boot and PostgreSQL (H2 for Integration test).       
 
-Can add, delete, update, get wishes. Also can get a list of all wishes.
+Can add, delete, update, get wishes and get a list containing all wishes. Also includes additional task - getting names from JSON and separating them with delimiter.
 
 ## How to run
 ### Spring Boot:
