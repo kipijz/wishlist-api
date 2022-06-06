@@ -1,7 +1,8 @@
 package com.example.wishlistapi.service;
 
-import com.example.wishlistapi.model.Wish;
-import com.example.wishlistapi.repository.WishRepository;
+import com.example.wishlistapi.wish.Wish;
+import com.example.wishlistapi.wish.WishRepository;
+import com.example.wishlistapi.wish.WishlistApiService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,11 +30,11 @@ class WishlistApiServiceTest {
     @InjectMocks
     private WishlistApiService wishlistApiService;
 
+    private final Wish wish = new Wish(1, "I wish I was a little bit taller.");
+
     @DisplayName("Should be able to add wish")
     @Test
     void canAddWish() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
         wishlistApiService.addWish(wish);
 
         ArgumentCaptor<Wish> wishArgumentCaptor =
@@ -50,14 +51,11 @@ class WishlistApiServiceTest {
     @DisplayName("Should be able to update wish")
     @Test
     void canUpdateWish() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
-        Wish updateWish = new Wish();
-        updateWish.setWish("I wish I was a cat.");
+        Wish updatedWish = new Wish(1, "I wish a cat.");
 
         wishlistApiService.addWish(wish);
         Mockito.when(wishRepository.existsById(1L)).thenReturn(true);
-        wishlistApiService.updateWish(updateWish, 1);
+        wishlistApiService.updateWish(1, "I wish a cat.");
 
         ArgumentCaptor<Wish> wishArgumentCaptor =
                 ArgumentCaptor.forClass(Wish.class);
@@ -67,15 +65,13 @@ class WishlistApiServiceTest {
 
         Wish capturedWish = wishArgumentCaptor.getValue();
 
-        assertThat(capturedWish).isEqualTo(updateWish);
+        assertThat(capturedWish).isEqualTo(updatedWish);
         assertThat(capturedWish.getId()).isEqualTo(1);
     }
 
     @DisplayName("Should be able to delete wish")
     @Test
     void canDeleteWish() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
         wishlistApiService.addWish(wish);
         wishlistApiService.deleteWish(1);
         Mockito.when(wishRepository.existsById(1L)).thenReturn(false);
@@ -86,8 +82,6 @@ class WishlistApiServiceTest {
     @DisplayName("Should be able to get wish")
     @Test
     void canGetWish() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
         wishlistApiService.addWish(wish);
         Mockito.when(wishRepository.findById(1L)).thenReturn(Optional.of(wish));
         Wish gottenWish = wishlistApiService.getWish(1);
@@ -98,8 +92,6 @@ class WishlistApiServiceTest {
     @DisplayName("Should not be able to get wish when id invalid")
     @Test
     void canThrowWhenInvalidId() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
         wishlistApiService.addWish(wish);
         Mockito.when(wishRepository.findById(2L)).thenReturn(Optional.empty());
 
@@ -114,8 +106,6 @@ class WishlistApiServiceTest {
     @DisplayName("Should be able to get wishlist")
     @Test
     void canGetWishList() {
-        Wish wish = new Wish(1, "I wish I was a little bit taller.");
-
         wishlistApiService.addWish(wish);
         List<Wish> gottenWishList = wishlistApiService.getWishList();
 

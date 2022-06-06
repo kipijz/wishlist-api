@@ -1,6 +1,5 @@
-package com.example.wishlistapi.repository;
+package com.example.wishlistapi.wish;
 
-import com.example.wishlistapi.model.Wish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

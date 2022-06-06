@@ -1,4 +1,4 @@
-package com.example.wishlistapi.model;
+package com.example.wishlistapi.wish;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

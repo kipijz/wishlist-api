@@ -1,7 +1,5 @@
-package com.example.wishlistapi.controller;
+package com.example.wishlistapi.wish;
 
-import com.example.wishlistapi.model.Wish;
-import com.example.wishlistapi.service.WishlistApiService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +18,8 @@ public class WishlistApiController {
     }
 
     @PutMapping("update-wish/{id}")
-    public void updateWish(@PathVariable long id, @RequestBody Wish wish) {
-        wishlistApiService.updateWish(wish, id);
+    public void updateWish(@PathVariable long id, @RequestBody String wishText) {
+        wishlistApiService.updateWish(id, wishText);
     }
 
     @DeleteMapping("delete-wish/{id}")

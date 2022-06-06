@@ -1,8 +1,8 @@
 package com.example.wishlistapi;
 
-import com.example.wishlistapi.model.Wish;
-import com.example.wishlistapi.repository.WishRepository;
-import com.example.wishlistapi.service.WishlistApiService;
+import com.example.wishlistapi.wish.Wish;
+import com.example.wishlistapi.wish.WishRepository;
+import com.example.wishlistapi.wish.WishlistApiService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

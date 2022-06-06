@@ -1,7 +1,5 @@
-package com.example.wishlistapi.service;
+package com.example.wishlistapi.wish;
 
-import com.example.wishlistapi.model.Wish;
-import com.example.wishlistapi.repository.WishRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,10 +18,10 @@ public class WishlistApiService {
         wishRepository.save(wish);
     }
 
-    public void updateWish(Wish wish, long id) {
+    public void updateWish(long id, String wishText) {
         if (wishRepository.existsById(id)) {
-            wish.setId(id);
-            wishRepository.save(wish);
+            Wish updatedWish = new Wish(id, wishText);
+            wishRepository.save(updatedWish);
         } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't update wish, wish with given ID not found!");
         }
